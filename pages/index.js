@@ -1,23 +1,15 @@
 import { useState, useEffect } from 'react';
 import Product from '../components/Product';
+import { initMongoose } from "../lib/mongoose";
+import { findAllProducts } from "./api/products";
 
-export default function Home() {
-  const [productsInfo, setProductsInfo] = useState([]);
+export default function Home({ products }) {
   const [phrase, setPhrase] = useState('');
 
-  useEffect(() => {
-    fetch('/api/products')
-      .then((response) => response.json())
-      .then((json) => setProductsInfo(json));
-  }, [])
+  const categoriesNames = [...new Set(products.map(p => p.category))];
 
-  const categoriesNames = [...new Set(productsInfo.map(p => p.category))];
-
-  let products;
   if (phrase) {
-    products = productsInfo.filter(p => p.name.toLowerCase().includes(phrase));
-  } else {
-    products = productsInfo;
+    products = products.filter(p => p.name.toLowerCase().includes(phrase));
   }
 
   return (
@@ -48,9 +40,17 @@ export default function Home() {
             )}
           </div>
         ))}
-        <div className="py-4">
-        </div>
       </div>
     </div >
   )
+}
+
+export async function getServerSideProps() {
+  await initMongoose();
+  const products = await findAllProducts();
+  return {
+    props: {
+      products: JSON.parse(JSON.stringify(products)),
+    },
+  };
 }
