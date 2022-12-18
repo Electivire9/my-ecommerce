@@ -4,13 +4,13 @@ import { ProductsContext } from "../components/ProductsContext";
 
 export default function CheckoutPage() {
     const { selectedProducts } = useContext(ProductsContext);
-    const [productsInfo, setProductsInfo] = useState([]);
+    const [productsInfos, setProductsInfos] = useState([]);
 
     useEffect(() => {
         const uniqIds = [...new Set(selectedProducts)];
         fetch('/api/products?ids=' + uniqIds.join(','))
             .then(response => response.json())
-            .then(json => setProductsInfo(json));
+            .then(json => setProductsInfos(json));
     }, [selectedProducts]);
 
     return (
