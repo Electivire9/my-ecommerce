@@ -42,14 +42,13 @@ export default function CheckoutPage() {
     // const tax = ((parseFloat(subtotal) + parseFloat(deliveryPrice)) * 0.15).toFixed(2);
     // const total = (parseFloat(subtotal) + parseFloat(deliveryPrice) + parseFloat(tax)).toFixed(2);
     
-
     return (
         <Layout>
             {/* ------------------ Order Info ------------------ */}
             {!productsInfos.length && (
                 <div>No Products Selected</div>
             )}
-            {productsInfos.length && productsInfos.map(productInfo => {
+            {productsInfos.length > 0 && productsInfos.map(productInfo => {
                 const amount = selectedProducts.filter(id => id === productInfo._id).length;
                 if (amount === 0) return; 
                 return (
