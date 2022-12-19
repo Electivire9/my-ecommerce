@@ -18,7 +18,7 @@ export default function Home({ products }) {
       <input value={phrase}
         onChange={e => setPhrase(e.target.value)}
         type="text"
-        placeholder="Search for products..."
+        placeholder="Search for dishes..."
         className="bg-gray-100 w-full py-2 px-4 rounded-xl" />
       <div>
         {categoriesNames.map(categoryName => (

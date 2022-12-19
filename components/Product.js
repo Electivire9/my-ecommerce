@@ -5,6 +5,7 @@ export default function Product({ _id, name, price, description, picture }) {
     const {setSelectedProducts} = useContext(ProductsContext);
     function addProduct() {
         setSelectedProducts(prev => [...prev, _id]);
+        alert(name + " Added");
     }
 
     return (
