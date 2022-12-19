@@ -30,7 +30,7 @@ export default function CheckoutPage() {
         }
     }
 
-    const deliveryPrice = (5).toFixed(2);
+    // const deliveryPrice = (5).toFixed(2);
     let subtotal = 0;
     if (selectedProducts.length > 0) {
         for (let id of selectedProducts) {
@@ -38,16 +38,16 @@ export default function CheckoutPage() {
             subtotal += price;
         }
     }
-    subtotal = subtotal.toFixed(2);
-    const tax = ((parseFloat(subtotal) + parseFloat(deliveryPrice)) * 0.15).toFixed(2);
-    const total = (parseFloat(subtotal) + parseFloat(deliveryPrice) + parseFloat(tax)).toFixed(2);
+    // subtotal = subtotal.toFixed(2);
+    // const tax = ((parseFloat(subtotal) + parseFloat(deliveryPrice)) * 0.15).toFixed(2);
+    // const total = (parseFloat(subtotal) + parseFloat(deliveryPrice) + parseFloat(tax)).toFixed(2);
     
 
     return (
         <Layout>
             {/* ------------------ Order Info ------------------ */}
             {!productsInfos.length && (
-                <div>no products</div>
+                <div>No Products Selected</div>
             )}
             {productsInfos.length && productsInfos.map(productInfo => {
                 const amount = selectedProducts.filter(id => id === productInfo._id).length;
@@ -57,7 +57,7 @@ export default function CheckoutPage() {
                     <div className="bg-gray-100 p-3 rounded-xl shrink-0">
                         <img className="w-24" src={productInfo.picture} alt='' />
                     </div>
-                    <div className="pl-4">
+                    <div className="pl-4 w-56">
                         <h3 className="font-bold text-lg">{productInfo.name}</h3>
                         <p className="text-sm leading-4 text-gray-500">{productInfo.description}</p>
                         <div className="flex">
@@ -89,7 +89,7 @@ export default function CheckoutPage() {
                         <h3 className="grow font-bold text-gray-400">Subtotal:</h3>
                         <h3 className="font-bold">${subtotal}</h3>
                     </div>
-                    <div className="flex my-2">
+                    {/* <div className="flex my-2">
                         <h3 className="grow font-bold text-gray-400">Delivery:</h3>
                         <h3 className="font-bold">${deliveryPrice}</h3>
                     </div>
@@ -100,10 +100,10 @@ export default function CheckoutPage() {
                     <div className="flex my-2 border-t pt-2 border-dashed border-emerald-500">
                         <h3 className="grow font-bold text-gray-400">Total:</h3>
                         <h3 className="font-bold">${total}</h3>
-                    </div>
+                    </div> */}
                 </div>
                 <input type="hidden" name="products" value={selectedProducts.join(',')} />
-                <button type="submit" className="bg-emerald-500 px-5 py-2 rounded-xl text-white font-bold w-full my-4 shadow-emerald-300 shadow-lg">Pay ${total}</button>
+                <button type="submit" className="bg-emerald-500 px-5 py-2 rounded-xl text-white font-bold w-full my-4 shadow-emerald-300 shadow-lg">Pay ${subtotal}</button>
             </form>
         </Layout>
     )
