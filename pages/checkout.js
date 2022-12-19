@@ -30,7 +30,7 @@ export default function CheckoutPage() {
         }
     }
 
-    const deliveryPrice = 5;
+    const deliveryPrice = (5).toFixed(2);
     let subtotal = 0;
     if (selectedProducts.length > 0) {
         for (let id of selectedProducts) {
@@ -38,7 +38,10 @@ export default function CheckoutPage() {
             subtotal += price;
         }
     }
-    const total = subtotal + deliveryPrice;
+    subtotal = subtotal.toFixed(2);
+    const tax = ((parseFloat(subtotal) + parseFloat(deliveryPrice)) * 0.15).toFixed(2);
+    const total = (parseFloat(subtotal) + parseFloat(deliveryPrice) + parseFloat(tax)).toFixed(2);
+    
 
     return (
         <Layout>
@@ -89,6 +92,10 @@ export default function CheckoutPage() {
                     <div className="flex my-2">
                         <h3 className="grow font-bold text-gray-400">Delivery:</h3>
                         <h3 className="font-bold">${deliveryPrice}</h3>
+                    </div>
+                    <div className="flex my-2">
+                        <h3 className="grow font-bold text-gray-400">Tax(15%):</h3>
+                        <h3 className="font-bold">${tax}</h3>
                     </div>
                     <div className="flex my-2 border-t pt-2 border-dashed border-emerald-500">
                         <h3 className="grow font-bold text-gray-400">Total:</h3>
