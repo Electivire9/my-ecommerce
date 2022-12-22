@@ -1,41 +1,41 @@
-import { useState } from 'react';
-import Product from '../components/Product';
+import { useState } from "react";
+import Product from "../components/Product";
 import { initMongoose } from "../lib/mongoose";
 import { findAllProducts } from "./api/products";
 
 import Layout from "../components/Layout";
 
 export default function Home({ products }) {
-  const [phrase, setPhrase] = useState('');
-  const categoriesNames = [...new Set(products.map(p => p.category))];
+  const [phrase, setPhrase] = useState("");
+  const categoriesNames = [...new Set(products.map((p) => p.category))];
 
   if (phrase) {
-    products = products.filter(p => p.name.toLowerCase().includes(phrase));
+    products = products.filter((p) => p.name.toLowerCase().includes(phrase));
   }
 
   return (
     <Layout>
-      <input value={phrase}
-        onChange={e => setPhrase(e.target.value)}
+      <input
+        value={phrase}
+        onChange={(e) => setPhrase(e.target.value)}
         type="text"
         placeholder="Search for dishes..."
-        className="bg-gray-100 w-full py-2 px-4 rounded-xl" />
+        className="bg-gray-100 w-full py-2 px-4 rounded-xl"
+      />
       <div>
-        {categoriesNames.map(categoryName => (
+        {categoriesNames.map((categoryName) => (
           <div key={categoryName}>
-            {products.find(p => p.category === categoryName) && (
+            {products.find((p) => p.category === categoryName) && (
               <div>
-                <h2 className="text-2xl py-5 capitalize">
-                  {categoryName}
-                </h2>
-                <div className='flex -mx-5 overflow-x-scroll snap-start scrollbar-hide'>
-                  {products.filter(
-                    p => p.category === categoryName).map(
-                      productInfo => (
-                        <div key={productInfo._id} className="px-5 snap-start">
-                          <Product {...productInfo} />
-                        </div>
-                      ))}
+                <h2 className="text-2xl py-5 capitalize">{categoryName}</h2>
+                <div className="flex -mx-5 overflow-x-scroll snap-start scrollbar-hide">
+                  {products
+                    .filter((p) => p.category === categoryName)
+                    .map((productInfo) => (
+                      <div key={productInfo._id} className="px-5 snap-start">
+                        <Product {...productInfo} />
+                      </div>
+                    ))}
                 </div>
               </div>
             )}
@@ -43,7 +43,7 @@ export default function Home({ products }) {
         ))}
       </div>
     </Layout>
-  )
+  );
 }
 
 export async function getServerSideProps() {
@@ -55,3 +55,4 @@ export async function getServerSideProps() {
     },
   };
 }
+//test
